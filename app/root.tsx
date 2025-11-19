@@ -9,6 +9,12 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { Toaster } from "react-hot-toast";
+import QueryProvider from "./providers/query-providers";
+import { useEffect } from "react";
+import { Toast } from "./config/toast";
+import { useAppStore } from "./store/app-store";
+import { useThemeStore } from "./store/theme-store";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -29,19 +35,40 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>LMS Admin Portal</title>
         <Meta />
         <Links />
       </head>
       <body>
-        {children}
+        <QueryProvider>{children}</QueryProvider>
         <ScrollRestoration />
         <Scripts />
+        <Toaster position="top-center" reverseOrder={false} />
       </body>
     </html>
   );
 }
 
 export default function App() {
+  const { errors, successMessages } = useAppStore();
+  const { setTheme, theme } = useThemeStore();
+
+  useEffect(() => {
+    setTheme(theme);
+  }, [theme, setTheme]);
+
+  useEffect(() => {
+    if (errors.length > 0) {
+      Toast.error(errors.join("\n"));
+    }
+  }, [errors]);
+
+  useEffect(() => {
+    if (successMessages.length > 0) {
+      Toast.success(successMessages.join("\n"));
+    }
+  }, [successMessages]);
+
   return <Outlet />;
 }
 

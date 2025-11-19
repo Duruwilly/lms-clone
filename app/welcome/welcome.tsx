@@ -1,7 +1,10 @@
+import { useThemeStore } from "~/store/theme-store";
 import logoDark from "./logo-dark.svg";
 import logoLight from "./logo-light.svg";
 
 export function Welcome() {
+  const { theme, setTheme, toggleTheme } = useThemeStore();
+  
   return (
     <main className="flex items-center justify-center pt-16 pb-4">
       <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
@@ -19,9 +22,30 @@ export function Welcome() {
             />
           </div>
         </header>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            className="rounded-md px-3 py-1 text-sm font-medium"
+          >
+            Toggle Theme
+          </button>
+
+          {/* Optional: Explicit selector instead of toggle */}
+          <select
+            value={theme}
+            onChange={(e) => setTheme(e.target.value as any)}
+            className="rounded-md border px-2 py-1 text-sm"
+          >
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+            <option value="system">System</option>
+          </select>
+        </div>
+
         <div className="max-w-[300px] w-full space-y-6 px-4">
           <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
-            <p className="leading-6 text-gray-700 dark:text-gray-200 text-center">
+            <p className="leading-6 text-center">
               What&apos;s next?
             </p>
             <ul>

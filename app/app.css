@@ -1,15 +1,298 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+* {
+  outline: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-optical-sizing: auto;
+  scroll-behavior: smooth;
 }
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
+::-webkit-scrollbar {
+  display: none;
+}
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+.width-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* PAGINATOR */
+.custom-paginator {
+  width: 100%;
+  margin: 20px 0px 15px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  left: 0;
+}
+
+.custom-paginator ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-paginator ul li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 7px;
+  padding: 12px;
+  height: 36px;
+  width: 36px;
+  border-radius: 6px;
+}
+
+.custom-paginator ul li a {
+  text-decoration: none;
+  color: #98a2b3;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.custom-paginator ul li.active {
+  text-decoration: none;
+  border: 1px solid #0c356b;
+}
+
+.custom-paginator ul li.active a {
+  color: #212121;
+}
+
+.custom-paginator ul li.disabled {
+  pointer-events: none;
+}
+
+.custom-paginator ul li.previous.disabled a {
+  /* color: #98a2b3; */
+  /* icon left */
+  pointer-events: none;
+}
+
+.custom-paginator ul li.next.disabled a {
+  /* icon right */
+  pointer-events: none;
+}
+
+.custom-paginator ul li.previous a {
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  padding: 8px;
+  height: 36px;
+  width: 36px;
+  color: #344054;
+  margin-right: 35px;
+}
+
+.custom-paginator ul li.next a {
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  padding: 8px;
+  height: 36px;
+  width: 36px;
+  color: #344054;
+  font-size: 20px;
+  margin-left: 35px;
+}
+
+/* white theme colors */
+:root {
+  --color-body: #f4f4f4;
+  --color-primary: #fff;
+  --color-sidebar: #006b3c;
+  --color-texts-neutral: #000000;
+  --color-primary-400: #338963;
+  --color-grey-400: #f6f6f6;
+  --color-text-primary: #1e293b;
+  --color-border: #e2e8f0;
+  --color-error: #ef4444;
+  --color-text-secondary: #666666;
+  --color-error-text: #d92d20;
+  --color-primary-500: #006b3c;
+  --color-error-bg: #fef3f2;
+  --color-grey-50: #fefefe;
+  --color-btn-outline: #fefefe;
+  --color-grey-600: #dedede;
+  --color-grey-700: #adadad;
+  --color-Blue-50: #e6edf7;
+  --color-Blue-200: #8aacd9;
+  --color-Blue-500: #004aad;
+  --color-Blue-600: #00439d;
+  --color-surface: #fefefe;
+  --color-texts-primary: #006b3c;
+  --color-texts-active: #fefefe;
+  --color-warning-bg: #fff4e5;
+  --color-grey-250: #f9f9f9;
+  --color-success-text: #27ae60;
+  --color-sucess-bg: #e6f0ec;
+
+  --checkmark-color: #ffffff;
+
+  /* utilities */
+  --color-border-secondary: #dedede;
+  --color-icon-neutral: #000000;
+  --color-icon-primary: #006b3c;
+  --color-icon-secondary: #666666;
+  --color-icon-success: #27ae60;
+}
+
+/* dark theme colors */
+[data-theme="dark"] {
+  --color-primary: #111111;
+  --color-body: #272727;
+  --color-sidebar: #272727;
+  --color-texts-neutral: #f1f1f1;
+  --color-primary-400: #338963;
+  --color-grey-400: #2e2e2e;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #c9c9c9;
+  --color-error-text: #e57373;
+  --color-primary-500: #3fa75c;
+  --color-error-bg: #381313;
+  --color-grey-50: #fefefe;
+  --color-btn-outline: #2e2e2e;
+  --color-grey-600: #dedede;
+  --color-grey-700: #adadad;
+  --color-Blue-50: #162333;
+  --color-Blue-200: #283f5d;
+  --color-Blue-500: #004aad;
+  --color-Blue-600: #5298dc;
+  --color-surface: #fefefe;
+  --color-texts-primary: #006b3c;
+  --color-texts-active: #fefefe;
+  --color-warning-bg: #fff4e5;
+  --color-grey-250: #f9f9f9;
+  --color-success-text: #27ae60;
+  --color-sucess-bg: #e6f0ec;
+
+  /* utilities */
+  --color-border-secondary: #434343;
+  --color-icon-neutral: #f1f1f1;
+  --color-icon-primary: #3fa75c;
+  --color-icon-secondary: #c9c9c9;
+  --color-icon-success: #27ae60;
+}
+
+@theme {
+  /* colors */
+  --color-primary-green: #006b3c;
+  --color-primary-400: #338963;
+  --color-text-active: #fefefe;
+
+  --breakpoint-desktop: 1024px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-mobile: 320px;
+
+  --font-Inter-Medium: Inter-Medium, sans-serif;
+  --font-Inter-Regular: Inter-Regular, sans-serif;
+  --font-Inter-Bold: Inter-Bold, sans-serif;
+  --font-Inter-SemiBold: Inter-SemiBold, sans-serif;
+}
+
+.custom-checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: transparent;
+  border: 2px solid var(--color-icon-secondary);
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-checkbox-container input:checked ~ .checkmark {
+  background-color: var(--color-icon-primary);
+  border-color: var(--color-icon-primary);
+}
+
+/* create checkmark icon */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* show checkmark when checked */
+.custom-checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* checkmark icon */
+.custom-checkbox-container .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--checkmark-color);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+@font-face {
+  font-family: "Inter-Medium";
+  src: url("./assets/fonts/Inter_18pt-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter-Regular";
+  src: url("./assets/fonts/Inter_18pt-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter-Bold";
+  src: url("./assets/fonts/Inter_18pt-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter-SemiBold";
+  src: url("./assets/fonts/Inter_18pt-SemiBold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* html {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+} */
+
+body {
+  font-family: "Inter-Regular", sans-serif;
+  background-color: var(--color-body);
+  color: var(--color-text-primary);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
